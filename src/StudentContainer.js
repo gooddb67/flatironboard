@@ -1,13 +1,14 @@
-import React, { Component } from 'react'
-import StudentList from './StudentList'
-import StudentForm from './StudentForm'
+import React, { Component } from 'react' //import react components
+import StudentList from './StudentList'//import studentList component
+import StudentForm from './StudentForm'//import student form component
+import StudentSearch from './StudentSearch'
 
 
-class StudentContainer extends Component {
+class StudentContainer extends Component {//declare component
 
 
   state = {
-    students: ["johann", "daniel", "terrance"]
+    students: []
   }
 
 
@@ -27,10 +28,20 @@ class StudentContainer extends Component {
     })
   }
 
+  searchStudents = (name) => {
+    const searchStudents = this.state.students.filter((student)=>{
+      return student.includes(name)
+    })
+    this.setState({
+      students: searchStudents
+    })
+  }
+
   render() {
     return (
       <div>
         <StudentForm onAdd={this.addStudent}/>
+        <StudentSearch onSearch={this.searchStudents}/>
         <StudentList onRemove={this.removeStudent} students={this.state.students}/>
       </div>
     )
